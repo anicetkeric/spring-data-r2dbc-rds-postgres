@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.liquibase.LiquibaseAutoConfigurati
 import org.springframework.data.r2dbc.repository.config.EnableR2dbcRepositories;
 
 @EnableR2dbcRepositories
-@SpringBootApplication(exclude = {LiquibaseAutoConfiguration.class})
+@SpringBootApplication
 public class SpringDataR2dbcRdsPostgresApplication {
 
     public static void main(String[] args) {

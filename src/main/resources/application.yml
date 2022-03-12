@@ -1,16 +1,17 @@
-database:
-  url: us-east-2.rds.amazonaws.com/book-rdbc-db
-  username: xxxxxxx
-  password: xxxxxxxx
+rds:
+  db:
+    url: us-east-2.rds.amazonaws.com/book-rdbc-db
+    username: xxxxxxx
+    password: xxxxxxxx
 
 spring:
   liquibase:
-    url: jdbc:postgresql://${database.url}
-    user: ${database.username}
-    password: ${database.password}
+    url: jdbc:postgresql://${rds.db.url}
+    user: ${rds.db.username}
+    password: ${rds.db.password}
     change-log: classpath:changelog/changelog-master.xml
 
   r2dbc:
-    url: r2dbc:postgresql://${database.url}
-    username:  ${database.username}
-    password: ${database.password}
+    url: r2dbc:postgresql://${rds.db.url}
+    username:  ${rds.db.username}
+    password: ${rds.db.password}

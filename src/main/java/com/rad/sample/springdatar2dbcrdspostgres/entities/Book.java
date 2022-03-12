@@ -19,14 +19,13 @@ public class Book {
     private Long id;
 
     @NotBlank
-    @Size(max = 30)
+    @Size(max = 100)
     private String title;
 
-    private int totalPage;
+    private int page;
 
     private String isbn;
 
-    @Size(max = 100)
     private String description;
 
     private double price;

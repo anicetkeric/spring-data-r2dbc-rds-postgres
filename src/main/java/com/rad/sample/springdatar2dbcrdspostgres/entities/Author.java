@@ -19,9 +19,8 @@ public class Author {
     private Long id;
 
     @NotBlank
-    @Size(max = 30)
-    private String lastName;
+    private String lastname;
 
-    private String firstName;
+    private String firstname;
 
 }

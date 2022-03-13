@@ -4,6 +4,7 @@ package com.rad.sample.springdatar2dbcrdspostgres.controller;
 import com.rad.sample.springdatar2dbcrdspostgres.entities.Book;
 import com.rad.sample.springdatar2dbcrdspostgres.repositories.BookRepository;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -28,4 +29,39 @@ public class BookController {
     public Flux<Book> getBooks() {
         return bookRepository.findAll();
     }
+
+
+    @GetMapping("/{bookId}")
+    public Mono<ResponseEntity<Book>> getBookById(@PathVariable long bookId){
+        return bookRepository.findById(bookId)
+                .map(ResponseEntity::ok)
+                .defaultIfEmpty(ResponseEntity.notFound().build());
+    }
+
+    @PutMapping("{bookId}")
+    public Mono<ResponseEntity<Book>> updateBook(@PathVariable long bookId, @RequestBody Mono<Book> bookMono){
+        return bookRepository.findById(bookId)
+                .flatMap(book -> bookMono.map(u -> {
+                    book.setDescription(u.getDescription());
+                    book.setPrice(u.getPrice());
+                    book.setIsbn(u.getIsbn());
+                    book.setPrice(u.getPrice());
+                    book.setPage(u.getPage());
+                    return book;
+                }))
+                .flatMap(bookRepository::save)
+                .map(ResponseEntity::ok)
+                .defaultIfEmpty(ResponseEntity.notFound().build());
+    }
+
+    @DeleteMapping("/{bookId}")
+    public Mono<ResponseEntity<Void>> deleteBook(@PathVariable long bookId) {
+        return bookRepository.findById(bookId)
+                .flatMap(s ->
+                        bookRepository.delete(s)
+                                .then(Mono.just(new ResponseEntity<Void>(HttpStatus.OK)))
+                )
+                .defaultIfEmpty(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
 }

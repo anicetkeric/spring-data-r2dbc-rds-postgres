@@ -32,4 +32,19 @@
         <addAutoIncrement tableName="book" columnName="id" columnDataType="bigint" startWith="1" incrementBy="1" />
         <addAutoIncrement tableName="author" columnName="id" columnDataType="bigint" startWith="1" incrementBy="1" />
     </changeSet>
+
+
+    <changeSet id="202010211812-1-data" author="aek" context="faker">
+        <loadData
+                file="changelog/data/book.csv"
+                separator=","
+                tableName="book"
+                usePreparedStatements="true">
+            <column name="title" type="string"/>
+            <column name="page" type="numeric"/>
+            <column name="isbn" type="string"/>
+            <column name="description" type="string"/>
+            <column name="price" type="numeric"/>
+        </loadData>
+    </changeSet>
 </databaseChangeLog>

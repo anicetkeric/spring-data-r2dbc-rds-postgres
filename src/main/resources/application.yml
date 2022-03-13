@@ -1,8 +1,8 @@
 rds:
   db:
-    url: us-east-2.rds.amazonaws.com/book-rdbc-db
-    username: xxxxxxx
-    password: xxxxxxxx
+    url: r2dbc-instance.ceox6edjpuog.us-east-2.rds.amazonaws.com/book-rdbc-db
+    username: postgres
+    password: postgres
 
 spring:
   liquibase:
